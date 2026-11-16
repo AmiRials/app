@@ -11,9 +11,14 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="AmiRials">
+<link rel="preconnect" href="https://script.google.com">
+<link rel="preconnect" href="https://script.googleusercontent.com" crossorigin>
+<link rel="preconnect" href="https://lh3.googleusercontent.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.tailwindcss.com" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
 <style>
 :root{--ink:#1f1b2e;--or:#ff5a1f;--mint:#0fb89c;--paper:#fff7ef}
 *{font-family:'Prompt',sans-serif}
@@ -64,21 +69,47 @@ const QS = new URLSearchParams(location.search);
 const PUB = QS.get('id') || '', REF = (QS.get('ref') || '').trim().replace(/^@/, '');
 const BASE = location.origin + location.pathname;
 const PROV = 'กรุงเทพมหานคร,กระบี่,กาญจนบุรี,กาฬสินธุ์,กำแพงเพชร,ขอนแก่น,จันทบุรี,ฉะเชิงเทรา,ชลบุรี,ชัยนาท,ชัยภูมิ,ชุมพร,เชียงราย,เชียงใหม่,ตรัง,ตราด,ตาก,นครนายก,นครปฐม,นครพนม,นครราชสีมา,นครศรีธรรมราช,นครสวรรค์,นนทบุรี,นราธิวาส,น่าน,บึงกาฬ,บุรีรัมย์,ปทุมธานี,ประจวบคีรีขันธ์,ปราจีนบุรี,ปัตตานี,พระนครศรีอยุธยา,พังงา,พัทลุง,พิจิตร,พิษณุโลก,เพชรบุรี,เพชรบูรณ์,แพร่,พะเยา,ภูเก็ต,มหาสารคาม,มุกดาหาร,แม่ฮ่องสอน,ยโสธร,ยะลา,ร้อยเอ็ด,ระนอง,ระยอง,ราชบุรี,ลพบุรี,ลำปาง,ลำพูน,เลย,ศรีสะเกษ,สกลนคร,สงขลา,สตูล,สมุทรปราการ,สมุทรสงคราม,สมุทรสาคร,สระแก้ว,สระบุรี,สิงห์บุรี,สุโขทัย,สุพรรณบุรี,สุราษฎร์ธานี,สุรินทร์,หนองคาย,หนองบัวลำภู,อ่างทอง,อำนาจเจริญ,อุดรธานี,อุตรดิตถ์,อุทัยธานี,อุบลราชธานี'.split(',');
-const IC = {moon:'M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z',sun:'M12 17a5 5 0 100-10 5 5 0 000 10zM12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4',bell:'M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9zM13.7 21a2 2 0 01-3.4 0',home:'M3 11l9-8 9 8v9a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1z',user:'M12 12a4 4 0 100-8 4 4 0 000 8zM4 21a8 8 0 0116 0',check:'M5 13l4 4L19 7',list:'M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01',hist:'M3 12a9 9 0 109-9 9 9 0 00-6.4 2.6L3 8M3 3v5h5M12 7v5l3 2',share:'M4 12v7a1 1 0 001 1h14a1 1 0 001-1v-7M16 6l-4-4-4 4M12 2v13',cog:'M12 15a3 3 0 100-6 3 3 0 000 6zM19 12a7 7 0 00-.1-1.2l2-1.6-2-3.4-2.4 1a7 7 0 00-2-1.2L14 3h-4l-.5 2.6a7 7 0 00-2 1.2l-2.4-1-2 3.4 2 1.6a7 7 0 000 2.4l-2 1.6 2 3.4 2.4-1a7 7 0 002 1.2L10 21h4l.5-2.6a7 7 0 002-1.2l2.4 1 2-3.4-2-1.6c.1-.4.1-.8.1-1.2z',users:'M17 20v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2M10 10a4 4 0 100-8 4 4 0 000 8zM21 20v-2a4 4 0 00-3-3.9M16 2.1a4 4 0 010 7.8',chart:'M4 20V10M10 20V4M16 20v-7M22 20H2',img:'M4 5h16v14H4zM8.5 10a1.5 1.5 0 100-3 1.5 1.5 0 000 3zM20 16l-5-5-9 8',out:'M9 21H5a1 1 0 01-1-1V4a1 1 0 011-1h4M16 17l5-5-5-5M21 12H9',trash:'M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3',plus:'M12 5v14M5 12h14',heart:'M12 21s-8-5.5-8-11a4.5 4.5 0 018-2.8A4.5 4.5 0 0120 10c0 5.5-8 11-8 11z',link:'M10 14a5 5 0 007 0l3-3a5 5 0 00-7-7l-1 1M14 10a5 5 0 00-7 0l-3 3a5 5 0 007 7l1-1',pay:'M3 7h18v10H3zM3 11h18',cam:'M4 8h3l2-3h6l2 3h3v11H4zM12 17a4 4 0 100-8 4 4 0 000 8z',shield:'M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z',dl:'M12 3v12M7 10l5 5 5-5M4 20h16',menu:'M4 6h16M4 12h16M4 18h16',x:'M6 6l12 12M18 6L6 18',gift:'M20 12v9H4v-9M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z'};
+const IC = {moon:'M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z',sun:'M12 17a5 5 0 100-10 5 5 0 000 10zM12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4',bell:'M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9zM13.7 21a2 2 0 01-3.4 0',home:'M3 11l9-8 9 8v9a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1z',user:'M12 12a4 4 0 100-8 4 4 0 000 8zM4 21a8 8 0 0116 0',check:'M5 13l4 4L19 7',list:'M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01',hist:'M3 12a9 9 0 109-9 9 9 0 00-6.4 2.6L3 8M3 3v5h5M12 7v5l3 2',share:'M4 12v7a1 1 0 001 1h14a1 1 0 001-1v-7M16 6l-4-4-4 4M12 2v13',cog:'M12 15a3 3 0 100-6 3 3 0 000 6zM19 12a7 7 0 00-.1-1.2l2-1.6-2-3.4-2.4 1a7 7 0 00-2-1.2L14 3h-4l-.5 2.6a7 7 0 00-2 1.2l-2.4-1-2 3.4 2 1.6a7 7 0 000 2.4l-2 1.6 2 3.4 2.4-1a7 7 0 002 1.2L10 21h4l.5-2.6a7 7 0 002-1.2l2.4 1 2-3.4-2-1.6c.1-.4.1-.8.1-1.2z',users:'M17 20v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2M10 10a4 4 0 100-8 4 4 0 000 8zM21 20v-2a4 4 0 00-3-3.9M16 2.1a4 4 0 010 7.8',chart:'M4 20V10M10 20V4M16 20v-7M22 20H2',img:'M4 5h16v14H4zM8.5 10a1.5 1.5 0 100-3 1.5 1.5 0 000 3zM20 16l-5-5-9 8',out:'M9 21H5a1 1 0 01-1-1V4a1 1 0 011-1h4M16 17l5-5-5-5M21 12H9',trash:'M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3',plus:'M12 5v14M5 12h14',heart:'M12 21s-8-5.5-8-11a4.5 4.5 0 018-2.8A4.5 4.5 0 0120 10c0 5.5-8 11-8 11z',link:'M10 14a5 5 0 007 0l3-3a5 5 0 00-7-7l-1 1M14 10a5 5 0 00-7 0l-3 3a5 5 0 007 7l1-1',pay:'M3 7h18v10H3zM3 11h18',cam:'M4 8h3l2-3h6l2 3h3v11H4zM12 17a4 4 0 100-8 4 4 0 000 8z',shield:'M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z',dl:'M12 3v12M7 10l5 5 5-5M4 20h16',menu:'M4 6h16M4 12h16M4 18h16',x:'M6 6l12 12M18 6L6 18',gift:'M20 12v9H4v-9M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z',copy:'M9 9h11v11H9zM5 15H4V4h11v1',skip:'M5 4l10 8-10 8zM19 5v14'};
 const ic = (n, c = 'w-5 h-5') => `<svg class="${c}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="${IC[n]}"/></svg>`;
 const $ = s => document.querySelector(s), esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
-/* storage: localStorage -> cookie -> memory (รองรับ iOS) */
-const mem = {}; const st = {
+
+/* ---------- storage: localStorage + cookie + IndexedDB + memory (กันหลุดล็อกอินบน iOS) ---------- */
+const mem = {};
+const IDB = {
+  db: null,
+  open() { return new Promise(res => { try { const r = indexedDB.open('amirials', 1); r.onupgradeneeded = () => r.result.createObjectStore('kv'); r.onsuccess = () => res(r.result); r.onerror = () => res(null); } catch (e) { res(null); } }); },
+  async tx(mode, fn) { try { if (!this.db) this.db = await this.open(); if (!this.db) return ''; return await new Promise(res => { const q = fn(this.db.transaction('kv', mode).objectStore('kv')); q.onsuccess = () => res(q.result || ''); q.onerror = () => res(''); }); } catch (e) { return ''; } },
+  get(k) { return this.tx('readonly', s => s.get(k)); },
+  set(k, v) { return this.tx('readwrite', s => s.put(v, k)); },
+  del(k) { return this.tx('readwrite', s => s.delete(k)); }
+};
+const st = {
   get(k) { try { const v = localStorage.getItem(k); if (v) return v; } catch (e) {} const m = document.cookie.match(new RegExp('(?:^|; )' + k + '=([^;]*)')); return m ? decodeURIComponent(m[1]) : mem[k] || ''; },
-  set(k, v) { mem[k] = v; try { localStorage.setItem(k, v); } catch (e) {} try { document.cookie = k + '=' + encodeURIComponent(v) + ';max-age=31536000;path=/;SameSite=None;Secure'; } catch (e) {} },
-  del(k) { delete mem[k]; try { localStorage.removeItem(k); } catch (e) {} try { document.cookie = k + '=;max-age=0;path=/'; } catch (e) {} }
+  set(k, v) { mem[k] = v; try { localStorage.setItem(k, v); } catch (e) {} try { document.cookie = k + '=' + encodeURIComponent(v) + ';max-age=31536000;path=/;SameSite=Lax' + (location.protocol === 'https:' ? ';Secure' : ''); } catch (e) {} IDB.set(k, v); },
+  del(k) { delete mem[k]; try { localStorage.removeItem(k); } catch (e) {} try { document.cookie = k + '=;max-age=0;path=/'; } catch (e) {} IDB.del(k); }
 };
+const keepStorage = () => { try { navigator.storage && navigator.storage.persist && navigator.storage.persist(); } catch (e) {} };
 const VID = (() => { let v = st.get('ls_vid'); if (!v) { v = Math.random().toString(36).slice(2) + Date.now().toString(36); st.set('ls_vid', v); } return v; })();
-/* เรียก Apps Script Web App (POST แบบ text/plain เพื่อเลี่ยง CORS preflight) */
+
+let T = st.get('ls_token'), S = {}, STAT = {}, B = [], ME = null, ME_T = 0, tab = '';
+try { S = JSON.parse(st.get('ls_S') || '{}') || {}; } catch (e) {}
+
+/* เรียก Apps Script Web App (POST แบบ text/plain เพื่อเลี่ยง CORS preflight) — คำสั่งอ่านข้อมูลลองซ้ำอัตโนมัติ 1 ครั้งเมื่อเน็ตสะดุด */
+const READS = new Set(['init', 'cfg', 'me', 'ping', 'badge', 'mission', 'getMission', 'myPosts', 'history', 'shareStats', 'publicPage', 'previewUrl', 'dash', 'users', 'payments', 'allPosts', 'banners', 'revenue', 'superStats', 'getSettings']);
 const call = async (a, p = {}) => {
-  let r; try { r = await fetch(API, {method: 'POST', body: JSON.stringify({a, p: Object.assign({t: T, vid: VID}, p)})}); r = await r.json(); } catch (e) { throw new Error('เชื่อมต่อเซิร์ฟเวอร์ไม่ได้ กรุณาลองใหม่'); }
-  if (r && r.ok) return r.d; throw new Error(r ? r.m : 'เซิร์ฟเวอร์ไม่ตอบกลับ');
+  let r = null;
+  for (let i = 0, n = READS.has(a) ? 2 : 1; i < n && !r; i++) {
+    try { const ac = new AbortController(), tm = setTimeout(() => ac.abort(), 45000); const x = await fetch(API, {method: 'POST', body: JSON.stringify({a, p: Object.assign({t: T, vid: VID}, p)}), signal: ac.signal}); clearTimeout(tm); r = await x.json(); } catch (e) { r = null; }
+  }
+  if (r && r.ok) return r.d; if (r) throw new Error(r.m || 'เกิดข้อผิดพลาด'); throw new Error('NET');
 };
+/* เริ่มโหลดข้อมูลทันทีขณะไลบรารีกำลังโหลด (ทำให้เปิดเว็บเร็วขึ้น) */
+const wrap = p => p.then(d => ({d}), e => ({e}));
+const P_INIT = wrap(call('init'));
+let P_ME0 = !PUB && T ? wrap(call('me')) : null;
+const P_PUB = PUB ? wrap(call('publicPage', {id: PUB})) : null;
+const takeMe = () => { const p = P_ME0 || wrap(call('me')); P_ME0 = null; return p; };
+
 const SKM = '<div class="space-y-6"><div class="sk" style="height:150px"></div><div class="sk" style="height:90px"></div><div class="sk" style="height:210px"></div></div>';
 const isDark = () => document.documentElement.classList.contains('dark');
 const modeBtn = () => `<button class="modeBtn btn ghost sm" onclick="toggleMode()" aria-label="โหมดมืด/สว่าง">${ic(isDark() ? 'sun' : 'moon', 'w-4 h-4')}</button>`;
@@ -87,22 +118,45 @@ let BADGE = {users: 0, pays: 0};
 function updateBadge(b) { BADGE = b; const n = b.users + b.pays; document.querySelectorAll('.bellN').forEach(e => { e.textContent = n > 99 ? '99+' : n; e.style.display = n ? 'flex' : 'none'; }); [['.bdusers', b.users], ['.bdpay', b.pays]].forEach(a => document.querySelectorAll(a[0]).forEach(e => { e.textContent = a[1]; e.style.display = a[1] ? 'flex' : 'none'; })); }
 async function pollBadge() { if (!T || !ME || ME.u.role === 'user') return; try { const b = await call('badge'), prev = BADGE.users + BADGE.pays, n = b.users + b.pays; if (window.__bi && n > prev) toast('มีรายการใหม่รอตรวจ ' + n + ' รายการ', 'info'); window.__bi = 1; updateBadge(b); } catch (e) {} }
 async function bellClick() { const b = BADGE; if (!b.users && !b.pays) return toast('ไม่มีรายการค้างตรวจ', 'info'); const r = await Swal.fire({title: 'รายการรอตรวจสอบ', html: `สมัครใหม่รออนุมัติ <b style="color:#dc2626">${b.users}</b> คน<br>สลิปต่ออายุ/ต่อลิงก์แชร์ <b style="color:#dc2626">${b.pays}</b> รายการ`, showDenyButton: true, showCancelButton: true, confirmButtonText: 'ตรวจสมาชิกใหม่', denyButtonText: 'ตรวจสลิปต่ออายุ', cancelButtonText: 'ปิด', confirmButtonColor: '#ff5a1f', denyButtonColor: '#0fb89c'}); if (r.isConfirmed) go('users'); else if (r.isDenied) go('pay'); }
-let T = st.get('ls_token'), S = {}, STAT = {}, B = [], ME = null, tab = '';
 const toast = (t, i = 'success') => Swal.fire({toast: true, position: 'top', icon: i, title: t, showConfirmButton: false, timer: 2200});
-const err = e => { if (e.message === 'EXPIRED') return boot(); if (e.message === 'AUTH') { st.del('ls_token'); T = ''; return boot(); } Swal.fire({icon: 'error', title: 'ไม่สำเร็จ', text: e.message, confirmButtonColor: '#ff5a1f'}); };
+const err = e => { if (e.message === 'EXPIRED') return boot(); if (e.message === 'AUTH') { st.del('ls_token'); T = ''; return boot(); } Swal.fire({icon: 'error', title: 'ไม่สำเร็จ', text: e.message === 'NET' ? 'เชื่อมต่อเซิร์ฟเวอร์ไม่ได้ กรุณาลองใหม่' : e.message, confirmButtonColor: '#ff5a1f'}); };
 const busy = async (fn) => { Swal.fire({title: 'กำลังดำเนินการ...', allowOutsideClick: false, didOpen: () => Swal.showLoading()}); try { const r = await fn(); Swal.close(); return r; } catch (e) { Swal.close(); err(e); } };
 const shrink = (file, max = 800) => new Promise(res => { const r = new FileReader(); r.onload = () => { const i = new Image(); i.onload = () => { const k = Math.min(1, max / Math.max(i.width, i.height)), c = document.createElement('canvas'); c.width = i.width * k; c.height = i.height * k; c.getContext('2d').drawImage(i, 0, 0, c.width, c.height); res(c.toDataURL('image/jpeg', .8)); }; i.src = r.result; }; r.readAsDataURL(file); });
 const pick = (cb, max) => { const f = document.createElement('input'); f.type = 'file'; f.accept = 'image/*'; f.onchange = async () => f.files[0] && cb(await shrink(f.files[0], max)); f.click(); };
 const qr = amt => `https://promptpay.io/${S.promptpayId}/${amt}.png`;
 const inp = (id, ph, type = 'text', v = '') => `<input id="${id}" type="${type}" placeholder="${ph}" value="${esc(v)}" class="in" autocomplete="off">`;
-const copyTxt = t => navigator.clipboard.writeText(t).then(() => toast('คัดลอกแล้ว')).catch(() => toast('คัดลอกไม่สำเร็จ', 'error'));
+
+/* ---------- คัดลอก (ใช้ toast ของตัวเอง ไม่ปิดหน้าต่าง Swal ที่เปิดอยู่) ---------- */
+function miniToast(m) { let e = $('#mt'); if (!e) { e = document.createElement('div'); e.id = 'mt'; e.style.cssText = 'position:fixed;left:50%;top:18px;transform:translateX(-50%);z-index:99999;background:#1f1b2e;color:#fff;padding:.55rem 1rem;border-radius:99px;font-size:.9rem;transition:opacity .2s;pointer-events:none;opacity:0'; document.body.appendChild(e); } e.textContent = m; e.style.opacity = 1; clearTimeout(e._t); e._t = setTimeout(() => e.style.opacity = 0, 1600); }
+function copyTxt(t) {
+  t = String(t); const ok = () => miniToast('คัดลอกแล้ว'), fb = () => { const a = document.createElement('textarea'); a.value = t; a.style.cssText = 'position:fixed;opacity:0'; document.body.appendChild(a); a.select(); try { document.execCommand('copy'); ok(); } catch (e) { miniToast('คัดลอกไม่สำเร็จ'); } a.remove(); };
+  navigator.clipboard ? navigator.clipboard.writeText(t).then(ok, fb) : fb();
+}
+const copyAcc = () => copyTxt(String(S.bankAccNo || '').replace(/[^0-9]/g, ''));
+const copyPP = () => copyTxt(String(S.promptpayId || '').replace(/[^0-9]/g, ''));
+/* กล่องข้อมูลชำระเงิน: พร้อมเพย์ (QR ตามยอด) หรือบัญชีธนาคาร (QR ที่อัปโหลด + เลขบัญชี + ปุ่มคัดลอก) */
+const payBox = amt => {
+  const amtLine = `<div class="text-sm">ยอดที่ต้องชำระ <b style="color:var(--or)">${esc(amt)} บาท</b> <button type="button" class="btn ghost sm ml-1" onclick="copyTxt('${esc(amt)}')">${ic('copy', 'w-4 h-4')} คัดลอกยอด</button></div>`;
+  if (S.payMethod === 'bank') return `<div class="space-y-2 text-center">${S.bankQr ? `<img src="${esc(S.bankQr)}" class="mx-auto w-52 rounded-xl" alt="QR บัญชีธนาคาร">` : ''}<div class="rounded-2xl bg-orange-50 p-3 text-sm text-left space-y-1"><div>ธนาคาร: <b>${esc(S.bankName)}</b></div><div>ชื่อบัญชี: <b>${esc(S.bankAccName)}</b></div><div class="flex items-center justify-between gap-2"><span>เลขบัญชี: <b class="text-lg tracking-wide">${esc(S.bankAccNo)}</b></span><button type="button" class="btn sm" onclick="copyAcc()">${ic('copy', 'w-4 h-4')} คัดลอกเลขบัญชี</button></div></div>${amtLine}</div>`;
+  return `<div class="space-y-2 text-center"><img src="${qr(amt)}" class="mx-auto w-52 rounded-xl" alt="QR พร้อมเพย์"><div class="text-sm">พร้อมเพย์: <b>${esc(S.promptpayId)}</b> <button type="button" class="btn ghost sm ml-1" onclick="copyPP()">${ic('copy', 'w-4 h-4')} คัดลอกเลข</button></div>${amtLine}</div>`;
+};
+async function ensureS() { if (S.regFee) return; try { const r = await call('cfg'); S = r.s || S; st.set('ls_S', JSON.stringify(S)); } catch (e) {} }
 
 async function boot() {
-  const r = await call('init').catch(e => ({s: {}, banners: []})); S = r.s || {}; B = r.banners || []; STAT = r; document.title = S.siteName || 'AmiRials'; if (!window.__pg) window.__pg = setInterval(() => call('ping').then(x => { document.querySelectorAll('#onl').forEach(el => el.textContent = x.online); }).catch(() => {}), 60000);
-  if (PUB) return pubView();
-  if (T) { try { ME = await call('me'); return shell(); } catch (e) { st.del('ls_token'); T = ''; } }
+  if (PUB) { pubView(); return; }
+  const r = await P_INIT; if (r.d) { S = r.d.s || S; B = r.d.banners || []; STAT = r.d; st.set('ls_S', JSON.stringify(S)); }
+  document.title = S.siteName || 'AmiRials';
+  if (!window.__pg) window.__pg = setInterval(() => call('ping').then(x => { document.querySelectorAll('#onl').forEach(el => el.textContent = x.online); }).catch(() => {}), 60000);
+  if (!T) { const t = await IDB.get('ls_token'); if (t) { T = t; st.set('ls_token', t); } }   // กู้ token จาก IndexedDB (iOS มักล้าง localStorage/cookie)
+  if (T) {
+    const x = await takeMe();
+    if (x.d) { ME = x.d; ME_T = Date.now(); keepStorage(); st.set('ls_token', T); return shell(); }
+    if (x.e.message === 'AUTH') { st.del('ls_token'); T = ''; }
+    else return retryView();   // เน็ตสะดุด/เซิร์ฟเวอร์ช้า: ไม่ลบ token ไม่ให้หลุดล็อกอิน
+  }
   loginView();
 }
+function retryView() { frame(`<div class="space-y-3 text-center"><h2 class="text-xl font-semibold">เชื่อมต่อไม่สำเร็จ</h2><p class="text-sm text-gray-500">สัญญาณอินเทอร์เน็ตหรือเซิร์ฟเวอร์ไม่ตอบสนอง บัญชีของคุณยังล็อกอินอยู่ กดลองใหม่ได้เลย</p><button class="btn w-full" onclick="$('#app').innerHTML=SKM;boot()">ลองใหม่</button></div>`); }
 
 /* ---------- INSTALL (ทางลัดเข้าแอป) ---------- */
 let DP = null; addEventListener('beforeinstallprompt', e => { e.preventDefault(); DP = e; });
@@ -110,7 +164,7 @@ try { const mf = {name: 'AmiRials', short_name: 'AmiRials', start_url: BASE, dis
 async function installApp() {
   if (DP) { DP.prompt(); await DP.userChoice; DP = null; return; }
   const ios = /iphone|ipad|ipod/i.test(navigator.userAgent);
-  await Swal.fire({title: 'ติดตั้งบนอุปกรณ์', imageUrl: LOGO, imageWidth: 72, imageHeight: 72, html: ios ? '<b>iPhone/iPad (Safari)</b><br>แตะปุ่มแชร์ → <b>เพิ่มลงในหน้าจอโฮม</b>' : '<b>Android / คอมพิวเตอร์ (Chrome, Edge)</b><br>เมนู ⋮ → <b>ติดตั้งแอป</b> / <b>เพิ่มลงหน้าจอหลัก</b> / <b>สร้างทางลัด</b>', confirmButtonText: 'เข้าใจแล้ว', confirmButtonColor: '#ff5a1f'});
+  await Swal.fire({title: 'ติดตั้งบนอุปกรณ์', imageUrl: LOGO, imageWidth: 72, imageHeight: 72, html: ios ? '<b>iPhone/iPad (Safari)</b><br>แตะปุ่มแชร์ → <b>เพิ่มลงในหน้าจอโฮม</b><br><span class="text-sm">ช่วยให้ล็อกอินค้างได้นานขึ้นบน iOS</span>' : '<b>Android / คอมพิวเตอร์ (Chrome, Edge)</b><br>เมนู ⋮ → <b>ติดตั้งแอป</b> / <b>เพิ่มลงหน้าจอหลัก</b> / <b>สร้างทางลัด</b>', confirmButtonText: 'เข้าใจแล้ว', confirmButtonColor: '#ff5a1f'});
 }
 const showSlip = url => Swal.fire({imageUrl: url, imageAlt: 'สลิปการโอน', imageWidth: '100%', width: 440, showCloseButton: true, showConfirmButton: false});
 
@@ -119,8 +173,9 @@ function frame(inner) { $('#app').innerHTML = `<div class="hero min-h-screen fle
 function loginView() {
   frame(`<div class="space-y-3"><h2 class="text-xl font-semibold">เข้าสู่ระบบ</h2>${REF ? `<div class="rounded-xl bg-orange-50 text-sm p-3">${ic('gift', 'w-4 h-4 inline')} คุณได้รับคำเชิญ รหัสผู้แนะนำ <b>${esc(REF)}</b> กด “สมัครสมาชิก” เพื่อสมัครผ่านลิงก์แนะนำ</div>` : ''}${inp('li', 'อีเมลหรือ username')}${inp('lp', 'รหัสผ่าน', 'password')}<button class="btn w-full" onclick="doLogin()">เข้าสู่ระบบ</button><div class="flex justify-between text-sm"><a href="#" class="text-orange-600" onclick="regStart('forgot');return false">ลืมรหัสผ่าน</a><a href="#" class="text-orange-600 font-medium" onclick="regStart('register');return false">สมัครสมาชิก</a></div></div>`);
 }
-async function doLogin() { const ok = await busy(async () => { const r = await call('login', {id: $('#li').value, password: $('#lp').value}); T = r.token; st.set('ls_token', T); ME = await call('me'); return 1; }); if (ok) shell(); }
+async function doLogin() { const ok = await busy(async () => { const r = await call('login', {id: $('#li').value, password: $('#lp').value}); T = r.token; st.set('ls_token', T); ME = await call('me'); ME_T = Date.now(); return 1; }); if (ok) { keepStorage(); shell(); } }
 async function regStart(mode) {
+  await ensureS();
   const { value: email } = await Swal.fire({title: mode === 'forgot' ? 'ลืมรหัสผ่าน' : 'สมัครสมาชิก', text: 'กรอกอีเมลเพื่อรับรหัส OTP', input: 'email', inputPlaceholder: 'you@email.com', showCancelButton: true, confirmButtonText: 'ส่ง OTP', cancelButtonText: 'ยกเลิก', confirmButtonColor: '#ff5a1f'});
   if (!email) return; const r = await busy(() => call('start', {email})); if (!r) return;
   const { value: code } = await Swal.fire({title: 'กรอกรหัส OTP', html: r.exists ? 'อีเมลนี้สมัครแล้ว ยืนยันเพื่อตั้งรหัสผ่านใหม่' : 'ส่งรหัสไปที่ ' + esc(email), input: 'text', inputAttributes: {inputmode: 'numeric', maxlength: 6}, showCancelButton: true, confirmButtonText: 'ยืนยัน', confirmButtonColor: '#ff5a1f'});
@@ -129,12 +184,12 @@ async function regStart(mode) {
 }
 function resetView(tk) { frame(`<div class="space-y-3"><h2 class="text-xl font-semibold">ตั้งรหัสผ่านใหม่</h2>${inp('np', 'รหัสผ่านใหม่ (6 ตัวขึ้นไป)', 'password')}<button class="btn w-full" onclick="doFinish('${tk}')">บันทึกรหัสผ่าน</button><button class="btn ghost w-full" onclick="loginView()">ยกเลิก</button></div>`); }
 let SLIP = '';
-function regView(tk, email) { SLIP = ''; frame(`<div class="space-y-3"><h2 class="text-xl font-semibold">ข้อมูลสมัครสมาชิก</h2><div class="text-sm text-gray-500">${esc(email)}</div>${inp('np', 'กำหนดรหัสผ่าน (6 ตัวขึ้นไป)', 'password')}${inp('fn', 'ชื่อ-สกุล')}${inp('un', 'username (a-z 0-9 _)')}${inp('ph', 'เบอร์โทร', 'tel')}<select id="pv" class="in"><option value="">เลือกจังหวัด</option>${PROV.map(p => `<option>${p}</option>`).join('')}</select>${inp('rf', 'รหัสผู้แนะนำ (ถ้ามี)', 'text', REF)}<div class="text-center bg-orange-50 rounded-2xl p-3"><div class="font-medium">ค่าสมัครสมาชิกเดือนแรก ${esc(S.regFee)} บาท (พร้อมเพย์)</div><img src="${qr(S.regFee)}" class="mx-auto w-48 mt-2 rounded-xl" alt="QR พร้อมเพย์"></div><button class="btn ghost w-full" onclick="pick(d=>{SLIP=d;$('#sp').src=d;$('#sp').classList.remove('hidden')})">${ic('cam')} แนบสลิปการโอน</button><img id="sp" class="hidden mx-auto max-h-64 rounded-xl"><button class="btn w-full" onclick="doFinish('${tk}')">สมัครสมาชิก</button><p class="text-xs text-gray-500 text-center">สมัครได้ระดับ user เท่านั้น ต้องรอแอดมินอนุมัติ และต้องต่ออายุสมาชิกทุกเดือน</p></div>`); }
+function regView(tk, email) { SLIP = ''; frame(`<div class="space-y-3"><h2 class="text-xl font-semibold">ข้อมูลสมัครสมาชิก</h2><div class="text-sm text-gray-500">${esc(email)}</div>${inp('np', 'กำหนดรหัสผ่าน (6 ตัวขึ้นไป)', 'password')}${inp('fn', 'ชื่อ-สกุล')}${inp('un', 'username (a-z 0-9 _)')}${inp('ph', 'เบอร์โทร', 'tel')}<select id="pv" class="in"><option value="">เลือกจังหวัด</option>${PROV.map(p => `<option>${p}</option>`).join('')}</select>${inp('rf', 'รหัสผู้แนะนำ (ถ้ามี)', 'text', REF)}<div class="bg-orange-50 rounded-2xl p-3 space-y-2"><div class="font-medium text-center">ค่าสมัครสมาชิกเดือนแรก ${esc(S.regFee)} บาท</div>${payBox(S.regFee)}</div><button class="btn ghost w-full" onclick="pick(d=>{SLIP=d;$('#sp').src=d;$('#sp').classList.remove('hidden')})">${ic('cam')} แนบสลิปการโอน</button><img id="sp" class="hidden mx-auto max-h-64 rounded-xl"><button class="btn w-full" onclick="doFinish('${tk}')">สมัครสมาชิก</button><p class="text-xs text-gray-500 text-center">สมัครได้ระดับ user เท่านั้น ต้องรอแอดมินอนุมัติ และต้องต่ออายุสมาชิกทุกเดือน</p></div>`); }
 async function doFinish(tk) {
   const g = i => $('#' + i) ? $('#' + i).value : ''; const r = await busy(() => call('finish', {ticket: tk, password: g('np'), fullName: g('fn'), username: g('un'), phone: g('ph'), province: g('pv'), ref: g('rf'), slip: SLIP}));
   if (!r) return; await Swal.fire({icon: 'success', title: r.mode === 'reset' ? 'เปลี่ยนรหัสผ่านแล้ว' : 'ส่งใบสมัครแล้ว', text: r.mode === 'reset' ? 'เข้าสู่ระบบด้วยรหัสใหม่ได้เลย' : 'รอแอดมินตรวจสลิปและอนุมัติ จึงจะเข้าสู่ระบบได้', confirmButtonColor: '#ff5a1f'}); loginView();
 }
-async function logout() { try { await call('logout', {t: T}); } catch (e) {} st.del('ls_token'); T = ''; ME = null; tab = ''; BADGE = {users: 0, pays: 0}; loginView(); }
+async function logout() { try { await call('logout', {t: T}); } catch (e) {} st.del('ls_token'); T = ''; ME = null; ME_T = 0; tab = ''; BADGE = {users: 0, pays: 0}; Object.keys(VC).forEach(k => delete VC[k]); loginView(); }
 
 /* ---------- SHELL ---------- */
 const isAd = () => ME.u.role !== 'user';
@@ -160,23 +215,61 @@ function shell() {
   const bottom = !ad ? `<nav class="fixed bottom-0 inset-x-0 z-30 bg-white/95 backdrop-blur border-t border-orange-100" style="padding-bottom:env(safe-area-inset-bottom)"><div class="max-w-3xl mx-auto grid grid-cols-5">${ts.map(t => `<button class="flex flex-col items-center gap-0.5 py-2 text-[11px] ${t[0] === tab ? 'text-orange-600 font-semibold' : 'text-gray-500'}" onclick="go('${t[0]}')"><span class="px-4 py-1 rounded-full transition ${t[0] === tab ? 'bg-orange-100' : ''}">${ic(t[2], 'w-5 h-5')}</span>${t[1]}</button>`).join('')}</div></nav>` : '';
   $('#app').innerHTML = `<header class="sticky top-0 z-20 bg-white/90 backdrop-blur border-b border-orange-100"><div class="max-w-3xl mx-auto flex items-center justify-between px-4 py-3">${head}</div></header><main id="main" class="max-w-3xl mx-auto p-4 space-y-4 ${ad ? '' : 'pb-28'}"></main>${drawer}${bottom}`;
   render();
-  if (ad) { updateBadge(BADGE); pollBadge(); if (!window.__bg) window.__bg = setInterval(pollBadge, 15000); }
+  if (ad) { updateBadge(BADGE); pollBadge(); if (!window.__bg) window.__bg = setInterval(pollBadge, 20000); }
 }
 function menu(o) { const d = $('#dr'), v = $('#ov'); if (!d) return; d.classList.toggle('-translate-x-full', !o); v.classList.toggle('opacity-0', !o); v.classList.toggle('pointer-events-none', !o); }
 const go = t => { tab = t; shell(); };
-async function render() { const m = $('#main'); m.innerHTML = SKM; try { m.innerHTML = '<div class="rise space-y-6">' + await V[tab]() + '</div>'; } catch (e) { err(e); } }
+const getMe = async force => { if (!force && ME && Date.now() - ME_T < 15000) return ME; ME = await call('me'); ME_T = Date.now(); return ME; };
+/* แสดงหน้าเดิมจากแคชทันที แล้วอัปเดตข้อมูลล่าสุดตามหลัง (stale-while-revalidate) */
+const VC = {};
+async function render() {
+  const m = $('#main'), t = tab; let shown = '';
+  if (VC[t]) { shown = VC[t]; m.innerHTML = '<div class="space-y-6">' + shown + '</div>'; } else m.innerHTML = SKM;
+  try {
+    const h = await V[t](); VC[t] = h; if (tab !== t || h === shown) return;
+    const a = document.activeElement; if (shown && a && m.contains(a) && /INPUT|TEXTAREA|SELECT/.test(a.tagName)) return;
+    m.innerHTML = '<div class="' + (shown ? '' : 'rise ') + 'space-y-6">' + h + '</div>';
+  } catch (e) { if (!shown || e.message === 'AUTH' || e.message === 'EXPIRED') err(e); }
+}
+const rr = () => { delete VC[tab]; render(); };
 const empty = t => `<div class="text-center text-gray-400 py-8">${t}</div>`;
 const stLabel = s => s === 'approved' ? ['อนุมัติแล้ว', 'text-emerald-600'] : s === 'pending' ? ['รออนุมัติ', 'text-orange-600'] : ['ไม่ผ่าน', 'text-gray-400'];
+const pct = (a, b) => b ? Math.min(100, Math.round(a / b * 100)) : 0;
+
+/* ---------- การ์ดภารกิจ ---------- */
+let MF = null, ML = null, SKF = [], SKL = [];
+const platBg = p => p === 'Facebook' ? '#1877f2' : '#c13584';
+const cardF = m => !m ? `<div class="box text-center text-gray-400 py-6">ไม่มีภารกิจติดตามค้างอยู่ตอนนี้ (ติดตามครบทุกคนแล้ว) ภารกิจใหม่จะขึ้นเมื่อมีสมาชิกใหม่</div>` :
+  `<div class="box space-y-3"><div class="flex items-center justify-between"><div class="font-semibold flex items-center gap-2">${ic('users')} ภารกิจติดตามถัดไป</div><span class="text-xs text-gray-500">เหลือ ${m.left} รายการ</span></div>
+<div class="flex items-center gap-3"><div class="w-16 h-16 rounded-full overflow-hidden bg-orange-100 flex items-center justify-center shrink-0">${m.avatar ? `<img src="${esc(m.avatar)}" loading="lazy" referrerpolicy="no-referrer" class="w-full h-full object-cover" onerror="this.remove()">` : ic('user', 'w-7 h-7')}</div><div class="min-w-0"><div class="font-bold truncate">@${esc(m.name)}</div><span class="inline-block text-xs px-2 py-0.5 rounded-full text-white" style="background:${platBg(m.platform)}">${esc(m.platform)}</span></div></div>
+<a class="btn w-full" href="${esc(m.url)}" target="_blank" rel="noopener">เปิดหน้า ${esc(m.platform)} ของ @${esc(m.name)}</a><p class="text-sm text-gray-500">กดติดตามแล้วกลับมากรอกว่าคุณเป็นผู้ติดตามคนที่เท่าไหร่</p>${inp('ansF', 'ผู้ติดตามคนที่ (ตัวเลข)', 'number')}
+<div class="flex gap-2"><button class="btn mint flex-1" onclick="subM('follow')">ยืนยันภารกิจ</button><button class="btn ghost" onclick="skipM('follow')" aria-label="ข้าม">${ic('skip', 'w-4 h-4')} ข้าม</button></div></div>`;
+const cardL = m => !m ? `<div class="box text-center text-gray-400 py-6">ยังไม่มีโพสต์ให้ทำภารกิจตอนนี้ รอเพื่อนเพิ่มโพสต์ใหม่ หรือพรุ่งนี้มาทำใหม่</div>` :
+  `<div class="box space-y-3"><div class="flex items-center justify-between"><div class="font-semibold flex items-center gap-2">${ic('heart')} ภารกิจรีลถัดไป</div><span class="text-xs text-gray-500">เหลือ ${m.left} โพสต์</span></div>
+<a href="${esc(m.url)}" target="_blank" rel="noopener" class="block rounded-2xl overflow-hidden border border-orange-100 hover:shadow-lg transition">${m.image ? `<img src="${esc(m.image)}" loading="lazy" referrerpolicy="no-referrer" class="w-full max-h-56 object-cover" onerror="this.remove()">` : `<div class="h-28 hero flex items-center justify-center text-white">${ic('link', 'w-8 h-8')}</div>`}<div class="p-3"><div class="font-semibold">${esc(m.title)}</div><div class="flex items-center justify-between text-sm mt-1"><span class="flex items-center gap-2 text-gray-500 min-w-0"><span class="w-6 h-6 rounded-full overflow-hidden bg-orange-100 shrink-0">${m.byAvatar ? `<img src="${esc(m.byAvatar)}" loading="lazy" referrerpolicy="no-referrer" class="w-full h-full object-cover" onerror="this.remove()">` : ''}</span><span class="truncate">@${esc(m.by)} • ${esc(m.platform || m.host)}</span></span><span class="font-semibold shrink-0" style="color:var(--or)">เปิดรีล ↗</span></div></div></a>
+<div class="rounded-xl bg-orange-50 p-3 text-sm text-gray-600 space-y-1"><div>1) เปิดรีลด้านบน ดูคลิป กดไลค์ และคอมเมนต์</div><div>2) กดตะกร้าสินค้าในคลิปเพื่อเปิด Shopee</div><div>3) ดูสินค้า แล้วคัดลอกชื่อสินค้ามาวางด้านล่างให้ตรงทุกตัวอักษร</div></div>
+<textarea id="ansL" class="in" rows="2" placeholder="วางชื่อสินค้าจาก Shopee"></textarea><div class="flex gap-2"><button class="btn mint flex-1" onclick="subM('like')">ยืนยันภารกิจ</button><button class="btn ghost" onclick="skipM('like')" aria-label="ข้าม">${ic('skip', 'w-4 h-4')} ข้าม</button></div></div>`;
+async function skipM(type) {
+  const f = type === 'follow', sk = f ? SKF : SKL, cur = f ? MF : ML; if (cur) sk.push(f ? cur.uid + '|' + cur.platform : cur.postId);
+  const m = await busy(() => call('getMission', {type, skip: sk})); if (m === undefined) return;
+  if (f) { MF = m; $('#cardF').innerHTML = cardF(m); } else { ML = m; $('#cardL').innerHTML = cardL(m); }
+}
+async function subM(type) {
+  const f = type === 'follow', m = f ? MF : ML; if (!m) return;
+  const ok = await busy(() => call('submitMission', f ? {type, targetUserId: m.uid, platform: m.platform, answer: $('#ansF').value} : {type, postId: m.postId, answer: $('#ansL').value}));
+  if (ok) { ME_T = 0; delete VC.profile; await Swal.fire({icon: 'success', title: 'ภารกิจสำเร็จ', timer: 1200, showConfirmButton: false}); rr(); }
+}
 
 /* ---------- USER VIEWS ---------- */
 const V = {
   async profile() {
-    ME = await call('me'); const u = ME.u, pct = Math.round(ME.next / ME.per * 100), rf = ME.ref, link = BASE + '?ref=' + encodeURIComponent(rf.code || u.username), left = u.memberUntil ? Math.ceil((new Date(u.memberUntil + 'T23:59:59+07:00') - Date.now()) / 864e5) : null;
+    const me = await getMe(), u = me.u, rf = me.ref, link = BASE + '?ref=' + encodeURIComponent(rf.code || u.username), left = u.memberUntil ? Math.ceil((new Date(u.memberUntil + 'T23:59:59+07:00') - Date.now()) / 864e5) : null;
     const rfList = rf.list.length ? rf.list.map(x => { const l = stLabel(x.status); return `<div class="flex justify-between items-center text-sm border-b border-orange-50 py-1.5"><span>@${esc(x.username)} <span class="text-xs text-gray-400">${esc(String(x.at).slice(0, 10))}</span></span><span class="text-xs ${l[1]}">${l[0]}${x.status === 'approved' ? (x.used ? ' • ใช้ส่วนลดแล้ว' : ' • รอใช้ส่วนลด') : ''}</span></div>`; }).join('') : '<div class="text-sm text-gray-400 text-center py-2">ยังไม่มีผู้ที่คุณแนะนำ</div>';
     return `
-<div class="t${u.theme} text-white rounded-3xl p-5 shadow-xl"><div class="flex items-center gap-4"><div class="relative"><div class="w-20 h-20 rounded-full bg-white/20 overflow-hidden flex items-center justify-center">${u.avatar ? `<img src="${u.avatar}" class="w-full h-full object-cover">` : ic('user', 'w-9 h-9')}</div><button onclick="pick(async d=>{await busy(()=>call('saveProfile',{avatar:d}));go('profile')},300)" class="absolute -right-1 -bottom-1 bg-white text-gray-800 rounded-full p-1.5">${ic('cam', 'w-4 h-4')}</button></div><div><div class="text-xl font-bold">@${esc(u.username)}</div><div class="opacity-90">${esc(u.fullName)}</div><div class="text-sm opacity-80">${esc(u.province)} • ${esc(u.role)}</div></div></div><div class="flex gap-2 mt-4">${[0, 1, 2, 3].map(i => `<button onclick="setTheme(${i})" class="t${i} w-8 h-8 rounded-full ring-2 ${u.theme == i ? 'ring-white' : 'ring-transparent'}"></button>`).join('')}</div></div>
+<div class="t${u.theme} text-white rounded-3xl p-5 shadow-xl"><div class="flex items-center gap-4"><div class="relative"><div class="w-20 h-20 rounded-full bg-white/20 overflow-hidden flex items-center justify-center">${u.avatar ? `<img src="${esc(u.avatar)}" referrerpolicy="no-referrer" class="w-full h-full object-cover">` : ic('user', 'w-9 h-9')}</div><button onclick="pick(async d=>{await busy(()=>call('saveProfile',{avatar:d}));ME_T=0;rr()},300)" class="absolute -right-1 -bottom-1 bg-white text-gray-800 rounded-full p-1.5">${ic('cam', 'w-4 h-4')}</button></div><div><div class="text-xl font-bold">@${esc(u.username)}</div><div class="opacity-90">${esc(u.fullName)}</div><div class="text-sm opacity-80">${esc(u.province)} • ${esc(u.role)}</div></div></div><div class="flex gap-2 mt-4">${[0, 1, 2, 3].map(i => `<button onclick="setTheme(${i})" class="t${i} w-8 h-8 rounded-full ring-2 ${u.theme == i ? 'ring-white' : 'ring-transparent'}"></button>`).join('')}</div></div>
 <div class="box flex items-center justify-between gap-3"><div><div class="text-sm text-gray-500">สมาชิกหมดอายุวันที่</div><div class="text-xl font-bold">${esc(u.memberUntil || '-')}</div>${u.shareUntil ? `<div class="text-xs text-gray-500 mt-1">ลิงก์แชร์ใช้ได้ถึง ${esc(u.shareUntil)}</div>` : ''}</div><div class="text-center rounded-2xl px-4 py-2 ${left !== null && left <= 5 ? 'bg-red-50 text-red-600' : 'bg-emerald-50 text-emerald-600'}"><div class="text-2xl font-bold">${left === null ? '-' : Math.max(0, left)}</div><div class="text-xs">วันที่เหลือ</div></div></div>
-<div class="box"><div class="flex justify-between font-medium mb-2"><span>ภารกิจวันนี้</span><span>${ME.done} ภารกิจ</span></div><div class="bar"><i style="width:${pct}%"></i></div><p class="text-xs text-gray-400 mt-1">ภารกิจและสิทธิ์โพสต์เริ่มนับใหม่ทุกวันเวลา 00:00 น. (เวลาไทย) • สมาชิกถึง ${esc(u.memberUntil || '-')}</p><p class="text-sm text-gray-500 mt-2">อีก ${ME.per - ME.next} ภารกิจ เพื่อรับสิทธิ์โพสต์เพิ่ม 1 โพสต์ • สิทธิ์โพสต์คงเหลือ ${ME.allowed}</p></div>
+<div class="box space-y-3"><div><div class="flex justify-between font-medium mb-2"><span>ภารกิจโพสต์วันนี้</span><span>${me.pm.done}/${me.pm.total}</span></div><div class="bar"><i style="width:${pct(me.pm.done, me.pm.total)}%"></i></div><p class="text-xs text-gray-400 mt-1">จำนวนทั้งหมดเพิ่มขึ้นอัตโนมัติเมื่อเพื่อนเพิ่มโพสต์ใหม่ • ภารกิจติดตามที่ยังไม่เคยทำ ${me.fl} รายการ</p></div>
+<div><div class="flex justify-between font-medium mb-2"><span>สิทธิ์โพสต์</span><span>${me.done} ภารกิจวันนี้</span></div><div class="bar"><i style="width:${pct(me.next, me.per)}%"></i></div><p class="text-sm text-gray-500 mt-2">อีก ${me.per - me.next} ภารกิจ เพื่อรับสิทธิ์โพสต์เพิ่ม 1 โพสต์ • สิทธิ์โพสต์คงเหลือ ${me.allowed}${me.free ? ` • โพสต์ฟรีวันละ ${me.free} โพสต์ (ไม่ต้องทำภารกิจ)` : ''}</p><p class="text-xs text-gray-400 mt-1">ภารกิจและสิทธิ์โพสต์เริ่มนับใหม่ทุกวันเวลา 00:00 น. (เวลาไทย) • สมาชิกถึง ${esc(u.memberUntil || '-')}</p></div></div>
 <div class="box space-y-4"><div class="font-semibold flex items-center gap-2">${ic('gift')} แนะนำเพื่อน รับส่วนลดต่ออายุ</div><p class="text-sm text-gray-500">เพื่อนกรอกรหัสผู้แนะนำของคุณตอนสมัคร (หรือสมัครผ่านลิงก์) และแอดมินอนุมัติแล้ว คุณจะได้ส่วนลด ${esc(rf.per)} บาท/คน (รวมสูงสุด ${esc(rf.max)} บาทต่อรอบ) ใช้ตอนต่ออายุสมาชิกครั้งถัดไป</p><div class="rounded-2xl border-2 border-dashed border-orange-300 bg-orange-50 p-3 text-center"><div class="text-xs text-gray-500">รหัสผู้แนะนำของคุณ</div><div class="text-3xl font-bold tracking-widest" style="color:var(--or)">${esc(rf.code)}</div><button class="btn sm mt-2" onclick="copyTxt('${esc(rf.code)}')">คัดลอกรหัส</button></div><input class="in" readonly value="${esc(link)}" onclick="this.select()"><button class="btn ghost w-full" onclick="copyTxt('${esc(link)}')">${ic('link')} คัดลอกลิงก์แนะนำ</button>
 <div class="grid grid-cols-3 gap-2 text-center"><div class="rounded-xl bg-orange-50 p-2"><div class="text-xl font-bold">${rf.count}</div><div class="text-xs text-gray-500">แนะนำทั้งหมด</div></div><div class="rounded-xl bg-orange-50 p-2"><div class="text-xl font-bold">${rf.approved}</div><div class="text-xs text-gray-500">อนุมัติแล้ว</div></div><div class="rounded-xl bg-emerald-50 p-2"><div class="text-xl font-bold text-emerald-600">${rf.disc}</div><div class="text-xs text-gray-500">ส่วนลดรอบหน้า (บาท)</div></div></div>
 <div class="rounded-xl bg-gray-50 p-3 text-sm">ต่ออายุรอบหน้าชำระ <b style="color:var(--or)">${rf.pay} บาท</b>${rf.disc > 0 ? ` <span class="text-gray-400 line-through">${rf.fee}</span>` : ''}${rf.ready * rf.per > rf.disc ? '<div class="text-xs text-gray-400 mt-1">ถึงเพดานส่วนลดต่อรอบแล้ว ผู้แนะนำที่เหลือจะยกไปใช้รอบถัดไป</div>' : ''}</div>
@@ -185,17 +278,19 @@ ${S.adminFb ? `<a class="btn ghost w-full" href="${esc(S.adminFb)}" target="_bla
 <div class="box space-y-4"><div class="font-semibold">โปรไฟล์โซเชียลของฉัน</div>${inp('fb', 'ลิงก์ Facebook', 'url', u.fbUrl)}<label class="flex gap-2 text-sm"><input type="checkbox" id="wfb" ${u.wantFb ? 'checked' : ''}> ต้องการเพิ่มยอดติดตาม Facebook</label>${inp('ig', 'ลิงก์ Instagram', 'url', u.igUrl)}<label class="flex gap-2 text-sm"><input type="checkbox" id="wig" ${u.wantIg ? 'checked' : ''}> ต้องการเพิ่มยอดติดตาม Instagram</label><button class="btn w-full" onclick="saveSoc()">บันทึก</button></div>`;
   },
   async mission() {
-    const ban = B.map(b => `<a href="#" onclick="clickBan('${b.id}','${esc(b.link)}');return false" class="block ${b.link ? '' : 'cursor-default'}"><img src="${esc(b.img)}" class="w-full rounded-2xl" alt="${esc(b.title)}"></a>`).join('');
-    return `${ban ? `<div class="space-y-4">${ban}</div>` : ''}<div class="box space-y-4"><div class="font-semibold">เลือกภารกิจ (ระบบสุ่มให้อัตโนมัติ)</div><button class="btn w-full" onclick="newM('follow')">${ic('users')} ติดตามเพื่อนสมาชิก</button><button class="btn mint w-full" onclick="newM('like')">${ic('heart')} ดูรีล ไลค์ คอมเมนต์ + กดตะกร้า</button></div><div id="mbox"></div>`;
+    const d = await call('mission'); MF = d.follow; ML = d.like; SKF = []; SKL = [];
+    const ban = B.map(b => `<a href="#" onclick="clickBan('${b.id}','${esc(b.link)}');return false" class="block ${b.link ? '' : 'cursor-default'}"><img src="${esc(b.img)}" loading="lazy" class="w-full rounded-2xl" alt="${esc(b.title)}"></a>`).join('');
+    return `${ban ? `<div class="space-y-4">${ban}</div>` : ''}<div class="box space-y-3"><div class="flex justify-between font-medium"><span>ภารกิจโพสต์วันนี้ทั้งหมด</span><span>${d.pm.done}/${d.pm.total}</span></div><div class="bar"><i style="width:${pct(d.pm.done, d.pm.total)}%"></i></div><div class="flex flex-wrap justify-between gap-1 text-xs text-gray-500"><span>จำนวนรวมเพิ่มขึ้นเมื่อเพื่อนเพิ่มโพสต์ใหม่ • ติดตามค้างอยู่ ${d.fl} รายการ</span><span>อีก ${d.per - d.next} ภารกิจ ได้สิทธิ์โพสต์เพิ่ม • สิทธิ์คงเหลือ ${d.allowed}</span></div></div><div id="cardF">${cardF(MF)}</div><div id="cardL">${cardL(ML)}</div>`;
   },
   async posts() {
-    const l = await call('myPosts'); ME = await call('me');
-    return `<div class="box space-y-4"><div class="font-semibold">โพสต์รีล Facebook / Instagram ที่ปักตะกร้า Shopee <span class="text-sm font-normal text-gray-500">(สิทธิ์คงเหลือ ${ME.allowed})</span></div><div class="rounded-xl bg-orange-50 p-3 text-sm text-gray-600 space-y-1"><div class="font-medium text-gray-800">วิธีโพสต์</div><div>1) คัดลอกลิงก์รีล Facebook หรือ Instagram ที่ปักตะกร้า Shopee ไว้ในคลิป</div><div>2) กดตะกร้าในคลิปเพื่อเปิด Shopee แล้วคัดลอกชื่อสินค้ามาวางให้ตรงทุกตัวอักษร</div><div>3) เพื่อนจะดูคลิป ไลค์ คอมเมนต์ กดตะกร้า แล้วตอบชื่อสินค้าให้ตรงกับที่คุณกรอก</div></div>${inp('pu', 'วางลิงก์รีล Facebook / Instagram', 'url')}<textarea id="pn" class="in" rows="2" placeholder="ชื่อสินค้าบน Shopee (คัดลอกมาวาง)"></textarea><button class="btn w-full" onclick="addPost()">${ic('plus')} โพสต์</button></div>${l.length ? l.map(p => `<div class="box flex items-center gap-3">${p.image ? `<img src="${esc(p.image)}" referrerpolicy="no-referrer" class="w-14 h-14 rounded-xl object-cover" onerror="this.remove()">` : ''}<div class="min-w-0 flex-1"><div class="font-medium truncate">${esc(p.title)}</div><a class="text-xs text-orange-600 truncate block" href="${esc(p.url)}" target="_blank">${esc(p.url)}</a></div><button class="btn ghost sm" onclick="delPost('${p.id}')">${ic('trash', 'w-4 h-4')}</button></div>`).join('') : empty('ยังไม่มีโพสต์')}`;
+    const [l, me] = await Promise.all([call('myPosts'), getMe()]);
+    return `<div class="box space-y-4"><div class="font-semibold">โพสต์รีล Facebook / Instagram ที่ปักตะกร้า Shopee <span class="text-sm font-normal text-gray-500">(สิทธิ์คงเหลือ ${me.allowed})</span></div><div class="rounded-xl bg-orange-50 p-3 text-sm text-gray-600 space-y-1"><div class="font-medium text-gray-800">วิธีโพสต์</div><div>1) คัดลอกลิงก์รีล Facebook หรือ Instagram ที่ปักตะกร้า Shopee ไว้ในคลิป ระบบจะดึงหน้าปกมาแสดงให้เอง</div><div>2) ตั้งหัวข้อ/เรื่องของคลิป เพื่อให้เพื่อนเห็นในหน้าภารกิจ</div><div>3) กดตะกร้าในคลิปเพื่อเปิด Shopee แล้วคัดลอกชื่อสินค้ามาวางให้ตรงทุกตัวอักษร</div><div>4) เพื่อนจะดูคลิป ไลค์ คอมเมนต์ กดตะกร้า แล้วตอบชื่อสินค้าให้ตรงกับที่คุณกรอก</div>${me.free ? `<div class="text-emerald-600">โพสต์ฟรีวันละ ${me.free} โพสต์ โดยไม่ต้องทำภารกิจ</div>` : ''}</div>
+<input id="pu" type="url" placeholder="วางลิงก์รีล Facebook / Instagram" class="in" autocomplete="off" oninput="prevDeb()" onpaste="prevDeb()"><div id="pvBox" class="hidden"></div>${inp('pt', 'หัวข้อ/เรื่องของคลิป (เช่น รีวิวหูฟังบลูทูธ)')}<textarea id="pn" class="in" rows="2" placeholder="ชื่อสินค้าบน Shopee (คัดลอกมาวาง)"></textarea><button class="btn w-full" onclick="addPost()">${ic('plus')} โพสต์</button></div>${l.length ? l.map(p => `<div class="box flex items-center gap-3">${p.image ? `<img src="${esc(p.image)}" loading="lazy" referrerpolicy="no-referrer" class="w-14 h-14 rounded-xl object-cover" onerror="this.remove()">` : ''}<div class="min-w-0 flex-1"><div class="font-medium truncate">${esc(p.title)}</div><a class="text-xs text-orange-600 truncate block" href="${esc(p.url)}" target="_blank">${esc(p.url)}</a></div><button class="btn ghost sm" onclick="delPost('${p.id}')">${ic('trash', 'w-4 h-4')}</button></div>`).join('') : empty('ยังไม่มีโพสต์')}`;
   },
-  async history() { const l = await call('history'); return l.length ? l.map(h => `<div class="box flex items-center gap-3"><span class="text-white rounded-full p-2" style="background:${h.type === 'follow' ? 'var(--or)' : 'var(--mint)'}">${ic(h.type === 'follow' ? 'users' : 'heart', 'w-4 h-4')}</span><div class="text-sm"><b>${h.type === 'follow' ? 'ติดตาม @' + esc(h.who) : 'ไลค์/คอมเมนต์/ตะกร้า'}</b><div class="text-gray-500">${h.post ? esc(h.post) + ' • ' : ''}${esc(h.at)}</div></div></div>`).join('') : empty('ยังไม่มีประวัติภารกิจ'); },
+  async history() { const l = await call('history'); return l.length ? l.map(h => `<div class="box flex items-center gap-3"><span class="text-white rounded-full p-2" style="background:${h.type === 'follow' ? 'var(--or)' : 'var(--mint)'}">${ic(h.type === 'follow' ? 'users' : 'heart', 'w-4 h-4')}</span><div class="text-sm"><b>${h.type === 'follow' ? 'ติดตาม @' + esc(h.who) + (h.platform ? ' (' + esc(h.platform) + ')' : '') : 'ไลค์/คอมเมนต์/ตะกร้า'}</b><div class="text-gray-500">${h.post ? esc(h.post) + ' • ' : ''}${esc(h.at)}</div></div></div>`).join('') : empty('ยังไม่มีประวัติภารกิจ'); },
   async share() {
-    ME = await call('me'); const u = ME.u, sl = BASE + '?id=' + encodeURIComponent(u.username), ss = ME.shareOn ? await call('shareStats') : null, sb = ss ? statsHtml(ss) : '';
-    if (ME.shareOn) return `<div class="box space-y-4"><div class="font-semibold">ลิงก์แชร์ของคุณ (ใช้ได้ถึง ${esc(u.shareUntil)})</div><input class="in" readonly value="${esc(sl)}" onclick="this.select()"><button class="btn w-full" onclick="copyTxt('${esc(sl)}')">คัดลอกลิงก์</button><button class="btn ghost w-full" onclick="payShare()">ต่ออายุอีก 30 วัน</button></div>${sb}`;
+    const me = await getMe(true), u = me.u, sl = BASE + '?id=' + encodeURIComponent(u.username), ss = me.shareOn ? await call('shareStats') : null, sb = ss ? statsHtml(ss) : '';
+    if (me.shareOn) return `<div class="box space-y-4"><div class="font-semibold">ลิงก์แชร์ของคุณ (ใช้ได้ถึง ${esc(u.shareUntil)})</div><input class="in" readonly value="${esc(sl)}" onclick="this.select()"><button class="btn w-full" onclick="copyTxt('${esc(sl)}')">คัดลอกลิงก์</button><button class="btn ghost w-full" onclick="payShare()">ต่ออายุอีก 30 วัน</button></div>${sb}`;
     return `<div class="box space-y-4 text-center"><div class="font-semibold">จ่ายเพิ่ม ${esc(S.shareFee)} บาท/เดือน เพื่อรับลิงก์ ?id=username ของคุณ</div><p class="text-sm text-gray-500">ส่งในแชทเพื่อนให้เข้ามากดติดตามและคลิกโพสต์ของคุณได้</p><button class="btn w-full" onclick="payShare()">ชำระเงินและแนบสลิป</button></div>`;
   },
   /* ----- admin ----- */
@@ -203,17 +298,29 @@ ${S.adminFb ? `<a class="btn ghost w-full" href="${esc(S.adminFb)}" target="_bla
     const s = await call('superStats'), c = (n, v, i) => `<div class="box flex items-center gap-3"><span class="rounded-full p-3 text-white" style="background:var(--ink)">${ic(i)}</span><div><div class="text-2xl font-bold">${v}</div><div class="text-sm text-gray-500">${n}</div></div></div>`;
     return `<div class="grid grid-cols-2 gap-4">${c('ออนไลน์ตอนนี้', s.online, 'users')}${c('เข้าชมวันนี้', s.viewsToday, 'chart')}${c('เข้าชมทั้งหมด', s.views, 'chart')}${c('สมาชิก (user)', s.users, 'user')}${c('จ่ายค่าสมาชิกแล้ว (ครั้ง)', s.memberPaid, 'pay')}${c('จ่ายค่าแชร์ลิงก์แล้ว (ครั้ง)', s.sharePaid, 'share')}${c('โพสต์ทั้งหมด', s.posts, 'link')}${c('ภารกิจที่ทำแล้ว', s.missions, 'check')}</div>
 <div class="box space-y-4 mt-3"><div class="font-semibold">จัดการแอดมิน</div>${s.admins.map(a => `<div class="flex justify-between items-center text-sm"><span>@${esc(a.username)} <span class="text-gray-500">${esc(a.email)}</span></span><button class="btn ghost sm" onclick="urole('${a.id}','user')">ลดเป็น user</button></div>`).join('') || '<div class="text-sm text-gray-400">ยังไม่มีแอดมิน</div>'}<div class="flex gap-2">${inp('nadm', 'อีเมลหรือ username ที่จะตั้งเป็นแอดมิน')}<button class="btn sm" onclick="makeAdm()">เพิ่ม</button></div></div>
-<div class="box text-sm text-gray-600 space-y-1 mt-3"><div class="font-semibold text-gray-800">สิทธิ์ Superadmin (สูงสุด)</div><div>• จัดการแอดมินและสมาชิกทุกคน: อนุมัติ ระงับ ลบ ต่ออายุ ตั้งรหัสผ่านใหม่ (แท็บสมาชิก)</div><div>• ตั้งค่าระบบ ค่าสมาชิก ค่าแชร์ลิงก์ ส่วนลดผู้แนะนำ พร้อมเพย์ (แท็บตั้งค่า)</div><div>• ใช้แดชบอร์ด ตรวจสลิป โพสต์ แบนเนอร์ ได้ครบเหมือนแอดมิน</div></div>`;
+<div class="box text-sm text-gray-600 space-y-1 mt-3"><div class="font-semibold text-gray-800">สิทธิ์ Superadmin (สูงสุด)</div><div>• จัดการแอดมินและสมาชิกทุกคน: อนุมัติ ระงับ ลบ ต่ออายุ ตั้งรหัสผ่านใหม่ (แท็บสมาชิก)</div><div>• ตั้งค่าระบบ ค่าสมาชิก ค่าแชร์ลิงก์ โควตาโพสต์ฟรี ส่วนลดผู้แนะนำ บัญชีรับเงิน (แท็บตั้งค่า)</div><div>• ใช้แดชบอร์ด ตรวจสลิป โพสต์ แบนเนอร์ ได้ครบเหมือนแอดมิน</div></div>`;
   },
   async dash() { const [d, rv] = await Promise.all([call('dash'), call('revenue')]); const c = (n, v, i) => `<div class="box flex items-center gap-3"><span class="rounded-full p-3 text-white" style="background:var(--or)">${ic(i)}</span><div><div class="text-2xl font-bold">${v}</div><div class="text-sm text-gray-500">${n}</div></div></div>`; return `<div class="grid grid-cols-2 gap-4">${c('สมาชิกทั้งหมด', d.total, 'users')}${c('สมัครใหม่วันนี้', d.newToday, 'plus')}${c('เคลื่อนไหววันนี้', d.activeToday, 'chart')}${c('รออนุมัติ', d.pending, 'check')}${c('ออนไลน์ตอนนี้', d.online, 'users')}${c('เข้าชมวันนี้ / ทั้งหมด', d.viewsToday + ' / ' + d.views, 'chart')}</div>${d.payPending ? `<div class="box text-sm">มีสลิปต่ออายุรอตรวจ ${d.payPending} รายการ</div>` : ''}${revHtml(rv)}`; },
   async users() { const l = await call('users'); return l.map(u => `<div class="box space-y-2"><div class="flex justify-between"><div><b>@${esc(u.username)}</b> <span class="text-xs px-2 py-0.5 rounded-full bg-orange-100">${esc(u.role)}</span><div class="text-sm text-gray-500">${esc(u.fullName)} • ${esc(u.phone)} • ${esc(u.province)}<br>${esc(u.email)}${u.refBy ? `<br>แนะนำโดย @${esc(u.refBy)}` : ''}</div></div><span class="text-xs text-gray-400">สมาชิกถึง ${esc(u.memberUntil || '-')}</span> <span class="text-xs font-medium ${u.status === 'approved' ? 'text-emerald-600' : 'text-orange-600'}">${esc(u.status)}</span></div>${u.slip ? `<button class="btn ghost sm" onclick="showSlip('${u.slip}')">${ic('img', 'w-4 h-4')} ดูสลิป</button>` : ''}<div class="flex flex-wrap gap-2">${u.status !== 'approved' ? `<button class="btn mint sm" onclick="ust('${u.id}','approved')">อนุมัติ</button>` : `<button class="btn ghost sm" onclick="ust('${u.id}','rejected')">ระงับ</button>`}${u.status === 'pending' ? `<button class="btn ghost sm" onclick="ust('${u.id}','rejected')">ปฏิเสธ</button>` : ''}${ME.u.role === 'superadmin' && u.role !== 'superadmin' ? `<button class="btn ghost sm" onclick="urole('${u.id}','${u.role === 'admin' ? 'user' : 'admin'}')">${u.role === 'admin' ? 'ลดเป็น user' : 'ตั้งเป็น admin'}</button>` : ''}${ME.u.role === 'superadmin' ? `<button class="btn ghost sm" onclick="uext('${u.id}','member')">+30 วันสมาชิก</button><button class="btn ghost sm" onclick="uext('${u.id}','share')">+30 วันแชร์</button><button class="btn ghost sm" onclick="upass('${u.id}')">ตั้งรหัสใหม่</button>` : ''}${u.role !== 'superadmin' ? `<button class="btn ghost sm" onclick="udel('${u.id}')">${ic('trash', 'w-4 h-4')}</button>` : ''}</div></div>`).join(''); },
-  async pay() { const l = await call('payments'); return l.length ? l.map(p => `<div class="box space-y-2"><b>@${esc(p.user)}</b> <span class="text-xs px-2 py-0.5 rounded-full bg-orange-100">${p.type === 'member' ? 'ต่ออายุสมาชิก' : 'ต่อลิงก์แชร์'}</span>${p.amount ? ` <span class="text-xs font-semibold text-emerald-600">ยอด ${esc(p.amount)} บาท</span>` : ''} <span class="text-xs text-gray-500">${esc(p.at)}</span><img src="${p.slip}" class="max-h-56 rounded-xl cursor-pointer" onclick="showSlip('${p.slip}')"><div class="flex gap-2"><button class="btn mint sm" onclick="pst('${p.id}',true)">อนุมัติ +30 วัน</button><button class="btn ghost sm" onclick="pst('${p.id}',false)">ปฏิเสธ</button></div></div>`).join('') : empty('ไม่มีสลิปต่ออายุรอตรวจ (สลิปสมัครครั้งแรกอยู่ในแท็บสมาชิก)'); },
+  async pay() { const l = await call('payments'); return l.length ? l.map(p => `<div class="box space-y-2"><b>@${esc(p.user)}</b> <span class="text-xs px-2 py-0.5 rounded-full bg-orange-100">${p.type === 'member' ? 'ต่ออายุสมาชิก' : 'ต่อลิงก์แชร์'}</span>${p.amount ? ` <span class="text-xs font-semibold text-emerald-600">ยอด ${esc(p.amount)} บาท</span>` : ''} <span class="text-xs text-gray-500">${esc(p.at)}</span><img src="${p.slip}" loading="lazy" class="max-h-56 rounded-xl cursor-pointer" onclick="showSlip('${p.slip}')"><div class="flex gap-2"><button class="btn mint sm" onclick="pst('${p.id}',true)">อนุมัติ +30 วัน</button><button class="btn ghost sm" onclick="pst('${p.id}',false)">ปฏิเสธ</button></div></div>`).join('') : empty('ไม่มีสลิปต่ออายุรอตรวจ (สลิปสมัครครั้งแรกอยู่ในแท็บสมาชิก)'); },
   async aposts() { const l = await call('allPosts'); return l.length ? l.map(p => `<div class="box flex justify-between items-center gap-2"><div class="min-w-0"><div class="font-medium truncate">${esc(p.title)}</div><div class="text-xs text-gray-500">@${esc(p.by)} • ${esc(p.at)}</div><a class="text-xs text-orange-600 truncate block" target="_blank" href="${esc(p.url)}">${esc(p.url)}</a></div><button class="btn ghost sm" onclick="delPost('${p.id}')">${ic('trash', 'w-4 h-4')}</button></div>`).join('') : empty('ยังไม่มีโพสต์'); },
-  async banners() { const l = await call('banners'); window.BL = l; return `<button class="btn w-full" onclick="editBan()">${ic('plus')} เพิ่มแบนเนอร์</button>` + l.map((b, i) => `<div class="box space-y-2"><img src="${esc(b.img)}" class="w-full rounded-xl"><div class="flex justify-between text-sm"><b>${esc(b.title)}</b><span>กด ${b.clicks} ครั้ง • ${b.active ? 'แสดง' : 'ซ่อน'}</span></div><div class="flex gap-2"><button class="btn ghost sm" onclick="editBan(${i})">แก้ไข</button><button class="btn ghost sm" onclick="delBan('${b.id}')">ลบ</button></div></div>`).join(''); },
-  async settings() { const s = await call('getSettings'); const f = [['siteName', 'ชื่อเว็บ'], ['regFee', 'ค่าสมัครสมาชิกเดือนแรก (บาท)'], ['renewFee', 'ค่าต่ออายุสมาชิก เดือนที่ 2 เป็นต้นไป (บาท)'], ['shareFee', 'ค่าแชร์ลิงก์โปรไฟล์/เดือน (บาท) แยกจากค่าสมาชิก'], ['promptpayId', 'เบอร์/เลขพร้อมเพย์'], ['adminFb', 'ลิงก์ติดต่อแอดมิน (ลิงก์อะไรก็ได้)'], ['missionsPerPost', 'ภารกิจขั้นต่ำต่อ 1 โพสต์/วัน'], ['refDiscount', 'ส่วนลดต่อผู้แนะนำ 1 คน (บาท) ตั้ง 0 = ปิดระบบส่วนลด'], ['refMax', 'ส่วนลดสูงสุดต่อรอบการต่ออายุ (บาท)']]; return `<div class="box space-y-4">${f.map(k => `<label class="block text-sm text-gray-600">${k[1]}${inp('s_' + k[0], '', 'text', s[k[0]])}</label>`).join('')}<button class="btn w-full" onclick="saveSet(${JSON.stringify(f.map(k => k[0])).replace(/"/g, '&quot;')})">บันทึกการตั้งค่า</button></div>`; }
+  async banners() { const l = await call('banners'); window.BL = l; return `<button class="btn w-full" onclick="editBan()">${ic('plus')} เพิ่มแบนเนอร์</button>` + l.map((b, i) => `<div class="box space-y-2"><img src="${esc(b.img)}" loading="lazy" class="w-full rounded-xl"><div class="flex justify-between text-sm"><b>${esc(b.title)}</b><span>กด ${b.clicks} ครั้ง • ${b.active ? 'แสดง' : 'ซ่อน'}</span></div><div class="flex gap-2"><button class="btn ghost sm" onclick="editBan(${i})">แก้ไข</button><button class="btn ghost sm" onclick="delBan('${b.id}')">ลบ</button></div></div>`).join(''); },
+  async settings() {
+    const s = await call('getSettings'); BQR = ''; BQX = false;
+    const f = [['siteName', 'ชื่อเว็บ'], ['regFee', 'ค่าสมัครสมาชิกเดือนแรก (บาท)'], ['renewFee', 'ค่าต่ออายุสมาชิก เดือนที่ 2 เป็นต้นไป (บาท)'], ['shareFee', 'ค่าแชร์ลิงก์โปรไฟล์/เดือน (บาท) แยกจากค่าสมาชิก'], ['adminFb', 'ลิงก์ติดต่อแอดมิน (ลิงก์อะไรก็ได้)'], ['missionsPerPost', 'ภารกิจขั้นต่ำต่อ 1 โพสต์/วัน'], ['freePosts', 'โควตาโพสต์ฟรีต่อวัน (ไม่ต้องทำภารกิจ) ตั้ง 0 = ไม่มี'], ['repeatDays', 'ห้ามทำภารกิจโพสต์เดิมซ้ำภายในกี่วัน (1 = ตัดของเมื่อวาน, 999 = ไม่ซ้ำเลย)'], ['refDiscount', 'ส่วนลดต่อผู้แนะนำ 1 คน (บาท) ตั้ง 0 = ปิดระบบส่วนลด'], ['refMax', 'ส่วนลดสูงสุดต่อรอบการต่ออายุ (บาท)']];
+    const keys = f.map(k => k[0]).concat(['payMethod', 'promptpayId', 'bankName', 'bankAccName', 'bankAccNo']), bank = s.payMethod === 'bank';
+    return `<div class="box space-y-4">${f.map(k => `<label class="block text-sm text-gray-600">${k[1]}${inp('s_' + k[0], '', 'text', s[k[0]])}</label>`).join('')}
+<div class="rounded-2xl bg-orange-50 p-3 space-y-3"><div class="font-semibold">บัญชีรับชำระเงิน</div><label class="block text-sm text-gray-600">ช่องทางรับเงิน<select id="s_payMethod" class="in" onchange="togPay(this.value)"><option value="promptpay" ${bank ? '' : 'selected'}>พร้อมเพย์ (สร้าง QR ตามยอดอัตโนมัติ)</option><option value="bank" ${bank ? 'selected' : ''}>บัญชีธนาคาร (อัปโหลด QR + เลขบัญชี)</option></select></label>
+<div id="ppBox" class="${bank ? 'hidden' : ''}"><label class="block text-sm text-gray-600">เบอร์/เลขพร้อมเพย์${inp('s_promptpayId', '', 'text', s.promptpayId)}</label></div>
+<div id="bkBox" class="space-y-3 ${bank ? '' : 'hidden'}"><label class="block text-sm text-gray-600">ชื่อธนาคาร${inp('s_bankName', 'เช่น กสิกรไทย', 'text', s.bankName)}</label><label class="block text-sm text-gray-600">ชื่อบัญชี${inp('s_bankAccName', '', 'text', s.bankAccName)}</label><label class="block text-sm text-gray-600">เลขบัญชี${inp('s_bankAccNo', '', 'text', s.bankAccNo)}</label>
+<div class="text-sm text-gray-600">รูป QR Code บัญชี<div class="mt-2"><img id="bqp" src="${esc(s.bankQr || '')}" class="${s.bankQr ? '' : 'hidden'} mx-auto max-h-48 rounded-xl mb-2"><div class="flex gap-2 justify-center"><button type="button" class="btn ghost sm" onclick="pick(d=>{BQR=d;BQX=false;$('#bqp').src=d;$('#bqp').classList.remove('hidden')},900)">${ic('img', 'w-4 h-4')} อัปโหลด QR</button><button type="button" class="btn ghost sm" onclick="BQR='';BQX=true;$('#bqp').classList.add('hidden')">ลบ QR</button></div></div></div></div></div>
+<button class="btn w-full" onclick="saveSet(${JSON.stringify(keys).replace(/"/g, '&quot;')})">บันทึกการตั้งค่า</button></div>`;
+  }
 };
 
 /* ---------- ACTIONS ---------- */
+let BQR = '', BQX = false;
+const togPay = v => { $('#ppBox').classList.toggle('hidden', v === 'bank'); $('#bkBox').classList.toggle('hidden', v !== 'bank'); };
 const TM = 'ม.ค.,ก.พ.,มี.ค.,เม.ย.,พ.ค.,มิ.ย.,ก.ค.,ส.ค.,ก.ย.,ต.ค.,พ.ย.,ธ.ค.'.split(','), baht = n => Number(n || 0).toLocaleString('th-TH');
 const TYL = {reg: 'สมัครสมาชิก', member: 'ต่ออายุ', share: 'แชร์โปรไฟล์'};
 const monthLb = k => { const [y, mo] = k.split('-'); return TM[+mo - 1] + ' ' + (+y + 543); };
@@ -229,46 +336,61 @@ async function loadRev(m) { const r = await busy(() => call('revenue', {month: m
 const statsHtml = s => `<div class="box space-y-4"><div class="font-semibold">สถิติลิงก์แชร์ของคุณ</div><div class="grid grid-cols-2 gap-4 text-center"><div class="rounded-xl bg-orange-50 p-3"><div class="text-2xl font-bold">${s.views}</div><div class="text-xs text-gray-500">เปิดหน้าลิงก์ (วันนี้ ${s.viewsToday})</div></div><div class="rounded-xl bg-orange-50 p-3"><div class="text-2xl font-bold">${s.visitors}</div><div class="text-xs text-gray-500">ผู้เข้าชม (ไม่ซ้ำเครื่อง)</div></div><div class="rounded-xl bg-emerald-50 p-3 col-span-2"><div class="text-2xl font-bold text-emerald-600">${s.clicks}</div><div class="text-xs text-gray-500">คลิกเปิดโพสต์ทั้งหมด (วันนี้ ${s.clicksToday})</div></div></div>${s.posts.length ? `<div>${s.posts.map(p => `<div class="flex justify-between gap-2 text-sm border-b border-orange-50 py-1.5"><span class="truncate">${esc(p.title)}</span><b class="shrink-0">${p.clicks} คลิก</b></div>`).join('')}</div>` : ''}</div>`;
 let OWNER = '';
 const trk = pid => call('shareHit', {id: OWNER, postId: pid, kind: 'click'}).catch(() => {});
-const uext = async (id, field) => { const r = await busy(() => call('userExtend', {id, field, days: 30})); if (r) { toast('ต่ออายุถึง ' + r); render(); } };
+const uext = async (id, field) => { const r = await busy(() => call('userExtend', {id, field, days: 30})); if (r) { toast('ต่ออายุถึง ' + r); rr(); } };
 const upass = async id => { const r = await Swal.fire({title: 'ตั้งรหัสผ่านใหม่ให้สมาชิก', input: 'text', inputPlaceholder: 'อย่างน้อย 6 ตัวอักษร', showCancelButton: true, confirmButtonColor: '#ff5a1f'}); if (r.value && await busy(() => call('userSetPass', {id, password: r.value}))) toast('ตั้งรหัสผ่านแล้ว'); };
-const makeAdm = async () => { if (await busy(() => call('makeAdmin', {key: $('#nadm').value}))) { toast('เพิ่มแอดมินแล้ว'); render(); } };
-const saveAfb = async () => { if (await busy(() => call('saveAdminFb', {url: $('#afb').value}))) { S.adminFb = $('#afb').value; toast('บันทึกแล้ว'); } };
+const makeAdm = async () => { if (await busy(() => call('makeAdmin', {key: $('#nadm').value}))) { toast('เพิ่มแอดมินแล้ว'); rr(); } };
 const clickBan = (id, link) => { link = String(link || '').trim(); if (!link) return; if (!/^[a-z][a-z0-9+.-]*:/i.test(link)) link = 'https://' + link; call('bannerClick', {id}).catch(() => {}); window.open(link, '_blank', 'noopener'); };
-async function setTheme(i) { await call('saveProfile', {theme: i}); render(); }
-async function saveSoc() { if (await busy(() => call('saveProfile', {fbUrl: $('#fb').value, igUrl: $('#ig').value, wantFb: $('#wfb').checked, wantIg: $('#wig').checked}))) toast('บันทึกแล้ว'); }
-let M = null;
-async function newM(type) {
-  M = await busy(() => call('getMission', {type})); if (!M) return; M.type = type;
-  $('#mbox').innerHTML = type === 'follow'
-    ? `<div class="box space-y-4 rise"><div class="font-semibold">ติดตาม @${esc(M.name)} บน ${M.platform}</div><a class="btn w-full" href="${esc(M.url)}" target="_blank">เปิดหน้า ${M.platform}</a><p class="text-sm text-gray-500">กดติดตามแล้วกลับมากรอกว่าคุณเป็นผู้ติดตามคนที่เท่าไหร่</p>${inp('ans', 'ผู้ติดตามคนที่ (ตัวเลข)', 'number')}<button class="btn mint w-full" onclick="subM()">ยืนยันภารกิจ</button></div>`
-    : `<div class="box space-y-4 rise"><a href="${esc(M.url)}" target="_blank" class="block rounded-2xl overflow-hidden border border-orange-100 hover:shadow-lg transition">${M.image ? `<img src="${esc(M.image)}" referrerpolicy="no-referrer" class="w-full max-h-56 object-cover" onerror="this.remove()">` : `<div class="h-28 hero flex items-center justify-center text-white">${ic('link', 'w-8 h-8')}</div>`}<div class="p-3 flex items-center justify-between text-sm"><span class="text-gray-500 truncate">${esc(M.platform ? M.platform + ' Reel' : M.host)}</span><span class="font-semibold" style="color:var(--or)">เปิดรีล ↗</span></div></a><div class="rounded-xl bg-orange-50 p-3 text-sm text-gray-600 space-y-1"><div>1) เปิดรีลด้านบน ดูคลิป กดไลค์ และคอมเมนต์</div><div>2) กดตะกร้าสินค้าในคลิปเพื่อเปิด Shopee</div><div>3) ดูสินค้า แล้วคัดลอกชื่อสินค้ามาวางด้านล่างให้ตรงทุกตัวอักษร</div></div><textarea id="ans" class="in" rows="2" placeholder="วางชื่อสินค้าจาก Shopee"></textarea><button class="btn mint w-full" onclick="subM()">ยืนยันภารกิจ</button></div>`;
+async function setTheme(i) { await call('saveProfile', {theme: i}); ME_T = 0; rr(); }
+async function saveSoc() { if (await busy(() => call('saveProfile', {fbUrl: $('#fb').value, igUrl: $('#ig').value, wantFb: $('#wfb').checked, wantIg: $('#wig').checked}))) { ME_T = 0; toast('บันทึกแล้ว'); } }
+
+/* โพสต์: วางลิงก์แล้วดึงหน้าปก/หัวข้อมาแสดงพรีวิวอัตโนมัติ */
+let PVT = null, PVI = '', PVC = '', PVU = '';
+function prevDeb() { clearTimeout(PVT); PVT = setTimeout(doPrev, 700); }
+function renderPv(pl) {
+  const src = PVC || PVI;
+  $('#pvBox').innerHTML = `<div class="rounded-2xl overflow-hidden border border-orange-100">${src ? `<img src="${esc(src)}" referrerpolicy="no-referrer" class="w-full max-h-56 object-cover" onerror="this.remove()">` : `<div class="h-28 hero flex items-center justify-center text-white text-sm px-3 text-center">ไม่พบหน้าปกอัตโนมัติ อัปโหลดหน้าปกเองได้</div>`}<div class="p-2 flex gap-2 items-center justify-between text-xs text-gray-500"><span>พรีวิวหน้าปก ${esc(pl || '')}</span><button type="button" class="btn ghost sm" onclick="pick(d=>{PVC=d;renderPv('${esc(pl || '')}')},800)">${ic('img', 'w-4 h-4')} อัปโหลดหน้าปกเอง</button></div></div>`;
 }
-async function subM() { const ok = await busy(() => call('submitMission', {type: M.type, targetUserId: M.uid, postId: M.postId, answer: $('#ans').value})); if (ok) { await Swal.fire({icon: 'success', title: 'ภารกิจสำเร็จ', timer: 1400, showConfirmButton: false}); go('profile'); } }
-async function addPost() { const g = i => $('#' + i).value; if (await busy(() => call('addPost', {url: g('pu'), name: g('pn')}))) { toast('โพสต์แล้ว'); render(); } }
-async function delPost(id) { if ((await Swal.fire({title: 'ลบโพสต์นี้?', icon: 'warning', showCancelButton: true, confirmButtonColor: '#ff5a1f', confirmButtonText: 'ลบ', cancelButtonText: 'ยกเลิก'})).isConfirmed) { await busy(() => call('delPost', {id})); render(); } }
-async function payMember() { const fresh = await busy(() => call('me')); if (!fresh) return; ME = fresh; const r = ME.ref; payFlow(r.pay, 'requestMember', 'ส่งสลิปแล้ว', 'รอแอดมินอนุมัติ แล้วเข้าสู่ระบบอีกครั้ง', r.disc > 0 ? `<p class="text-sm text-emerald-600 mt-1">ส่วนลดจากการแนะนำเพื่อน -${r.disc} บาท (ราคาปกติ ${r.fee} บาท)</p>` : ''); }
+async function doPrev() {
+  const el = $('#pu'); if (!el) return; const u = el.value.trim(), b = $('#pvBox'); PVI = ''; PVC = ''; PVU = '';
+  if (!/^https?:\/\/\S+$/.test(u)) { b.classList.add('hidden'); return; }
+  b.classList.remove('hidden'); b.innerHTML = '<div class="sk" style="height:140px"></div>';
+  try { const r = await call('previewUrl', {url: u}); if (!$('#pu') || $('#pu').value.trim() !== u) return; PVI = r.image || ''; PVU = u; const t = $('#pt'); if (r.title && t && !t.value.trim()) t.value = r.title; renderPv(r.platform); }
+  catch (e) { if ($('#pvBox')) $('#pvBox').innerHTML = `<div class="text-sm text-red-500">${esc(e.message === 'NET' ? 'ดึงพรีวิวไม่สำเร็จ กรุณาลองใหม่' : e.message)}</div>`; }
+}
+async function addPost() {
+  const g = i => $('#' + i).value, url = g('pu').trim();
+  if (await busy(() => call('addPost', {url, title: g('pt'), name: g('pn'), image: PVU === url ? PVI : '', cover: PVC}))) { PVI = ''; PVC = ''; PVU = ''; ME_T = 0; delete VC.profile; toast('โพสต์แล้ว'); rr(); }
+}
+async function delPost(id) { if ((await Swal.fire({title: 'ลบโพสต์นี้?', icon: 'warning', showCancelButton: true, confirmButtonColor: '#ff5a1f', confirmButtonText: 'ลบ', cancelButtonText: 'ยกเลิก'})).isConfirmed) { await busy(() => call('delPost', {id})); ME_T = 0; rr(); } }
+
+async function payMember() { const fresh = await busy(() => getMe(true)); if (!fresh) return; const r = fresh.ref; payFlow(r.pay, 'requestMember', 'ส่งสลิปแล้ว', 'รอแอดมินอนุมัติ แล้วเข้าสู่ระบบอีกครั้ง', r.disc > 0 ? `<p class="text-sm text-emerald-600 mt-1">ส่วนลดจากการแนะนำเพื่อน -${r.disc} บาท (ราคาปกติ ${r.fee} บาท)</p>` : ''); }
 async function payShare() { payFlow(S.shareFee, 'requestShare', 'ส่งสลิปแล้ว', 'รอแอดมินอนุมัติ'); }
-async function payFlow(fee, act, t1, t2, extra = '') { Swal.fire({title: 'ชำระ ' + fee + ' บาท', html: `<img src="${qr(fee)}" class="mx-auto w-52 rounded-xl">${extra}<p class="text-sm mt-2">สแกนจ่ายแล้วแนบสลิป</p>`, confirmButtonText: 'แนบสลิป', showCancelButton: true, confirmButtonColor: '#ff5a1f'}).then(r => r.isConfirmed && pick(async d => { const p = await Swal.fire({title: 'ยืนยันส่งสลิป?', imageUrl: d, imageWidth: 220, showCancelButton: true, confirmButtonColor: '#ff5a1f'}); if (p.isConfirmed && await busy(() => call(act, {slip: d}))) Swal.fire({icon: 'success', title: t1, text: t2, confirmButtonColor: '#ff5a1f'}); })); }
-const ust = async (id, status) => { await busy(() => call('userStatus', {id, status})); toast('อัปเดตแล้ว'); render(); };
-const urole = async (id, role) => { await busy(() => call('userRole', {id, role})); render(); };
-const udel = async id => { if ((await Swal.fire({title: 'ลบสมาชิก?', icon: 'warning', showCancelButton: true, confirmButtonColor: '#ff5a1f'})).isConfirmed) { await busy(() => call('delUser', {id})); render(); } };
-const pst = async (id, ok) => { await busy(() => call('payStatus', {id, ok})); toast('เรียบร้อย'); render(); };
-const delBan = async id => { await busy(() => call('delBanner', {id})); render(); };
+async function payFlow(fee, act, t1, t2, extra = '') { await ensureS(); Swal.fire({title: 'ชำระ ' + fee + ' บาท', html: `${payBox(fee)}${extra}<p class="text-sm mt-2">สแกนหรือโอนแล้วแนบสลิป</p>`, confirmButtonText: 'แนบสลิป', showCancelButton: true, cancelButtonText: 'ปิด', confirmButtonColor: '#ff5a1f'}).then(r => r.isConfirmed && pick(async d => { const p = await Swal.fire({title: 'ยืนยันส่งสลิป?', imageUrl: d, imageWidth: 220, showCancelButton: true, confirmButtonColor: '#ff5a1f'}); if (p.isConfirmed && await busy(() => call(act, {slip: d}))) Swal.fire({icon: 'success', title: t1, text: t2, confirmButtonColor: '#ff5a1f'}); })); }
+const ust = async (id, status) => { await busy(() => call('userStatus', {id, status})); toast('อัปเดตแล้ว'); rr(); };
+const urole = async (id, role) => { await busy(() => call('userRole', {id, role})); rr(); };
+const udel = async id => { if ((await Swal.fire({title: 'ลบสมาชิก?', icon: 'warning', showCancelButton: true, confirmButtonColor: '#ff5a1f'})).isConfirmed) { await busy(() => call('delUser', {id})); rr(); } };
+const pst = async (id, ok) => { await busy(() => call('payStatus', {id, ok})); toast('เรียบร้อย'); rr(); };
+const delBan = async id => { await busy(() => call('delBanner', {id})); rr(); };
 let BIMG = '';
 async function editBan(i) {
   const b = i === undefined ? {title: '', img: '', link: '', active: true} : BL[i]; BIMG = '';
   const r = await Swal.fire({title: 'แบนเนอร์', html: `<input id="bt" class="swal2-input" placeholder="ชื่อแบนเนอร์" value="${esc(b.title)}"><div class="my-3"><img id="bp" src="${esc(b.img)}" class="${b.img ? '' : 'hidden'} mx-auto max-h-40 rounded-xl mb-2"><button type="button" class="btn ghost sm" onclick="pick(d=>{BIMG=d;$('#bp').src=d;$('#bp').classList.remove('hidden')},1200)">${ic('img', 'w-4 h-4')} อัปโหลดรูปแบนเนอร์</button></div><input id="bl" class="swal2-input" placeholder="ลิงก์ปลายทาง (เว้นว่างได้ = แตะแล้วไม่เกิดอะไร)" value="${esc(b.link)}"><label class="text-sm"><input type="checkbox" id="ba" ${b.active ? 'checked' : ''}> แสดงผล</label>`, showCancelButton: true, confirmButtonColor: '#ff5a1f', confirmButtonText: 'บันทึก', cancelButtonText: 'ยกเลิก', preConfirm: () => { if (!BIMG && !b.img) { Swal.showValidationMessage('กรุณาอัปโหลดรูปแบนเนอร์'); return false; } return {id: b.id, title: $('#bt').value, file: BIMG, link: $('#bl').value, active: $('#ba').checked}; }});
-  if (r.isConfirmed) { await busy(() => call('saveBanner', r.value)); render(); }
+  if (r.isConfirmed) { await busy(() => call('saveBanner', r.value)); rr(); }
 }
-async function saveSet(keys) { const s = {}; keys.forEach(k => s[k] = $('#s_' + k).value); if (await busy(() => call('saveSettings', {s}))) { toast('บันทึกแล้ว'); const r = await call('init'); S = r.s; } }
+async function saveSet(keys) {
+  const s = {}; keys.forEach(k => { const e = $('#s_' + k); if (e) s[k] = e.value; });
+  if (await busy(() => call('saveSettings', {s, bankQr: BQR, clearBankQr: BQX}))) { BQR = ''; BQX = false; toast('บันทึกแล้ว'); try { const r = await call('cfg'); S = r.s; st.set('ls_S', JSON.stringify(S)); } catch (e) {} rr(); }
+}
 
 /* ---------- PUBLIC SHARE PAGE ---------- */
 async function pubView() {
-  try { const d = await call('publicPage', {id: PUB}), u = d.user; OWNER = d.oid;
-    $('#app').innerHTML = `<div class="max-w-md mx-auto p-4 space-y-4"><div class="t${u.theme} text-white rounded-3xl p-6 text-center rise"><div class="w-24 h-24 rounded-full bg-white/20 mx-auto overflow-hidden flex items-center justify-center">${u.avatar ? `<img src="${u.avatar}" class="w-full h-full object-cover">` : ic('user', 'w-10 h-10')}</div><div class="text-xl font-bold mt-3">@${esc(u.username)}</div><div class="flex gap-2 mt-4 justify-center">${u.fbUrl ? `<a class="btn ghost sm" href="${esc(u.fbUrl)}" target="_blank">ติดตาม Facebook</a>` : ''}${u.igUrl ? `<a class="btn ghost sm" href="${esc(u.igUrl)}" target="_blank">ติดตาม Instagram</a>` : ''}</div></div>${d.posts.map(p => `<a href="${esc(p.url)}" target="_blank" onclick="trk('${esc(p.id)}')" class="block box !p-0 overflow-hidden">${p.image ? `<img src="${esc(p.image)}" referrerpolicy="no-referrer" class="w-full max-h-52 object-cover" onerror="this.remove()">` : ''}<div class="p-3"><div class="font-medium">${esc(p.title)}</div><div class="text-xs text-gray-500">${esc(p.host)}</div></div></a>`).join('') || empty('ยังไม่มีโพสต์')}</div>`;
-  } catch (e) { $('#app').innerHTML = `<div class="p-10 text-center">${esc(e.message)}</div>`; }
+  const x = await P_PUB;
+  if (x.e) { $('#app').innerHTML = `<div class="p-10 text-center">${esc(x.e.message === 'NET' ? 'เชื่อมต่อเซิร์ฟเวอร์ไม่ได้ กรุณาลองใหม่' : x.e.message)}</div>`; return; }
+  const d = x.d, u = d.user; OWNER = d.oid;
+  $('#app').innerHTML = `<div class="max-w-md mx-auto p-4 space-y-4"><div class="t${u.theme} text-white rounded-3xl p-6 text-center rise"><div class="w-24 h-24 rounded-full bg-white/20 mx-auto overflow-hidden flex items-center justify-center">${u.avatar ? `<img src="${esc(u.avatar)}" referrerpolicy="no-referrer" class="w-full h-full object-cover">` : ic('user', 'w-10 h-10')}</div><div class="text-xl font-bold mt-3">@${esc(u.username)}</div><div class="flex gap-2 mt-4 justify-center">${u.fbUrl ? `<a class="btn ghost sm" href="${esc(u.fbUrl)}" target="_blank">ติดตาม Facebook</a>` : ''}${u.igUrl ? `<a class="btn ghost sm" href="${esc(u.igUrl)}" target="_blank">ติดตาม Instagram</a>` : ''}</div></div>${d.posts.map(p => `<a href="${esc(p.url)}" target="_blank" onclick="trk('${esc(p.id)}')" class="block box !p-0 overflow-hidden">${p.image ? `<img src="${esc(p.image)}" loading="lazy" referrerpolicy="no-referrer" class="w-full max-h-52 object-cover" onerror="this.remove()">` : ''}<div class="p-3"><div class="font-medium">${esc(p.title)}</div><div class="text-xs text-gray-500">${esc(p.host)}</div></div></a>`).join('') || empty('ยังไม่มีโพสต์')}</div>`;
 }
-boot();
+/* สคริปต์ภายนอกแบบ defer โหลดเสร็จก่อน DOMContentLoaded เสมอ จึงเริ่ม boot ตอนนั้น (ส่วนการเรียก API เริ่มไปแล้วด้านบน) */
+addEventListener('DOMContentLoaded', boot);
 </script>
 </body>
 </html>
